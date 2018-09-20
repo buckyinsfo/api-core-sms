@@ -7,6 +7,6 @@ const SMSController = require('../controllers/sms')
 
 router.get('/', /*authCheck,*/  SMSController.get_all_sms)
 
-router.post('/send', /*authCheck,*/ SMSController.sendSms, SMSController.logSms )
+router.post('/send', /*authCheck,*/ SMSController.sendSms, SMSController.logSms)
 
 module.exports = router

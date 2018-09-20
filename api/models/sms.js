@@ -10,7 +10,7 @@ const smsSchema = mongoose.Schema({
 	oldSeller: { type: String, required: true },
 	newPrice: { type: Number, required: true },
     newSeller: { type: String, required: true },
-    //msgSentSid: { type: String, required: true },
+    msgSid: { type: String, required: true },
 })
 
 module.exports = mongoose.model('SMS', smsSchema)

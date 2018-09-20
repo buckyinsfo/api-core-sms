@@ -18,18 +18,22 @@ exports.sendSms = (req, res, next) => {
         newSeller: req.body.newSeller,
     }
 
+    const str = JSON.stringify(smsMsg).trim()
+    console.log( str )
+
     twilio.messages.create({
 //      to: process.env.MY_PHONE_NUMBER,
         to: "+" + req.body.phoneNumber,
         from: process.env.TWILIO_PHONE_NUMBER,
-        body: JSON.stringify({smsMsg})
+        body: str
     })
     .then( (message) => {
-        res.setHeader({
+        res.locals.smsService = {
             message: message
-        })
+        }
         next()
     })
+    /*
     .catch( err => {
         console.log( err )
         res.status(500).json({
@@ -37,6 +41,7 @@ exports.sendSms = (req, res, next) => {
             error: err,
         })
     })
+    */
     .done()
 }    
 
@@ -45,14 +50,14 @@ exports.sendSms = (req, res, next) => {
 exports.logSms = (req, res, next) => {
     const sms = new SMS({
         _id: new mongoose.Types.ObjectId(),
-        //user: req.body.user,
+        email: req.body.user,
         phoneNumber: req.body.phoneNumber,
         asin: req.body.asin,
         oldPrice: req.body.oldPrice,
         oldSeller: req.body.oldSeller,
         newPrice: req.body.newPrice,
         newSeller: req.body.newSeller,
-        msgSentSid: res.message.sid,
+        msgSid: res.locals.smsService.message.sid,
     })
 
     sms
@@ -84,7 +89,8 @@ exports.get_all_sms = (req, res, next) => {
     
     SMS
         .find()
-        .select( "phoneNumber asin oldPrice oldSeller newPrice newSeller msgSentSid" )
+        .select( "time phoneNumber asin oldPrice oldSeller newPrice newSeller msgSid" )
+        .populate('user', 'email role')
         .exec()
         .then( docs => {
             const response = {
@@ -92,13 +98,15 @@ exports.get_all_sms = (req, res, next) => {
                 smsMsgs: docs.map( doc => {
                     return {
                         _id: doc._id,
+                        time: doc.time,
+                        email: doc.email,
                         phoneNumber: doc.phoneNumber,
                         asin: doc.asin,
                         oldSeller: doc.oldSeller,
                         oldPrice: doc.oldPrice,
                         newSeller: doc.newSeller,
                         newPrice: doc.newPrice,
-                        msgSentSid: doc.msgSentSid,
+                        msgSid: doc.msgSid,
                         request: {
                             desc: "To list a specific sms",
                             type: 'GET',
