@@ -1,9 +1,6 @@
 const mongoose = require('mongoose')
 const SMS = require('../models/sms')
 
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
-
 const authToken = process.env.TWILIO_AUTH_TOKEN
 const accountSid = process.env.TWILIO_ACCOUNT_SID
 
@@ -22,7 +19,6 @@ exports.sendSms = (req, res, next) => {
     console.log( str )
 
     twilio.messages.create({
-//      to: process.env.MY_PHONE_NUMBER,
         to: "+" + req.body.phoneNumber,
         from: process.env.TWILIO_PHONE_NUMBER,
         body: str
@@ -33,20 +29,10 @@ exports.sendSms = (req, res, next) => {
         }
         next()
     })
-    /*
-    .catch( err => {
-        console.log( err )
-        res.status(500).json({
-            msg: "Twilio request failure.",
-            error: err,
-        })
-    })
-    */
     .done()
 }    
 
-
-    // Log message to database.
+// Log sent message to database.
 exports.logSms = (req, res, next) => {
     const sms = new SMS({
         _id: new mongoose.Types.ObjectId(),
@@ -123,4 +109,16 @@ exports.get_all_sms = (req, res, next) => {
                 error: err 
             })
         })
+}
+
+exports.get_by_asin = (req, res, next) => {
+    res.status(501).json({
+        message: "Not Implemented"
+    })
+}
+
+exports.get_by_user = (req, res, next) => {
+    res.status(501).json({
+        message: "Not Implemented"
+    })
 }
