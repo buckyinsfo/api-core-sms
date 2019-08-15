@@ -8,9 +8,18 @@ const userSchema = mongoose.Schema({
         unique: true,
         match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
     },
-    password: { type: String, required: true },
+
     role: { type: String, default: "user" },
-    active: { type: Boolean, default: true }
+    active: { type: Boolean, default: false },
+    verified: { type: Boolean, default: false },
+    authyId: String,
+    
+    fullName: { type: String, required: true },
+    company: { type: String },
+    countryCode: { type: String, required: true },
+    phone: { type: String, required: true },
+    password: { type: String, required: true },
 })
+
 
 module.exports = mongoose.model('User', userSchema)

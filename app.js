@@ -1,29 +1,26 @@
 const createError = require('http-errors')
 const express = require('express')
+const bodyParser = require('body-parser')
 const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
-const cors = require('cors')
-const mongoose = require('mongoose')
 
 const indexRouter = require('./api/routes/index')
+const formsRouter = require('./api/routes/forms')
 const usersRouter = require('./api/routes/users')
 const smsRouter = require('./api/routes/sms')
 
 const app = express()
 
-mongoose.connect(
-    'mongodb://admin:' +
-    process.env.MONGO_ATLAS_PW +
-    process.env.MONGO_ATLAS_CONNECT,
-    {
-        useNewUrlParser: true,
-    })
-mongoose.Promise = global.Promise
+const cors = require('cors')
+const mongoose = require('./mongoose-connect')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'api', 'views'))
 app.set('view engine', 'pug')
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 app.use(logger('dev'))
 app.use(cors())
@@ -46,9 +43,10 @@ app.use((req, res, next) => {
 })
 
 app.use('/', indexRouter)
+app.use('/forms', formsRouter)
 app.use('/sms', smsRouter)
 app.use('/users', usersRouter)
-
+  
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
     const error = new Error('Not found')
@@ -65,9 +63,11 @@ app.use((err, req, res, next) => {
     // render the error page
     res.status(err.status || 500)
     res.json({
-        error: {
-            message: error.message
-        }
+        // error: {
+        //     header: "royal fail",
+        message: error.message
+
+        //    msg: "not good to be here"
     })
 })
 
