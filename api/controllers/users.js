@@ -87,7 +87,7 @@ exports.login = (req, res, next) => {
                 }
                 res.status(401).json({
                     message: 'Auth fail',
-                })
+                 })
             })
         })
         .catch(err => {
@@ -120,11 +120,8 @@ exports.get_all = (req, res, next) => {
 }
 
 exports.get_user = (req, res, next) => {
-    if (true) {
-        return res.status(200).json({ params: req.params, body: req.body })
-    }
 
-    User.find({ email: req.params.email })
+    User.find({ email: req.query.email })
         .exec()
         .then( user => {
             if (user.length > 0) {
@@ -138,7 +135,6 @@ exports.get_user = (req, res, next) => {
                 })
             }
         })
-    
 }
 
 exports.delete_byId = (req, res, next) => {

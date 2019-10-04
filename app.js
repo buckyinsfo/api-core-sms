@@ -10,7 +10,7 @@ const formsRouter = require('./api/routes/forms')
 const usersRouter = require('./api/routes/users')
 const smsRouter = require('./api/routes/sms')
 
-const app = express()
+const app = express() 
 
 const cors = require('cors')
 const mongoose = require('./mongoose-connect')
@@ -19,8 +19,8 @@ const mongoose = require('./mongoose-connect')
 app.set('views', path.join(__dirname, 'api', 'views'))
 app.set('view engine', 'pug')
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
 app.use(logger('dev'))
 app.use(cors())
@@ -64,10 +64,15 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500)
     res.json({
         // error: {
+<<<<<<< HEAD
+        message: error.message
+        // msg: "not good to be here"
+=======
         //     header: "royal fail",
         message: error.message
 
         //    msg: "not good to be here"
+>>>>>>> 6384a6136ca02dc92243a8d36b4e7e87c91faf36
     })
 })
 

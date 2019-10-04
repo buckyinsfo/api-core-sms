@@ -11,6 +11,6 @@ router.get('/asin/:asin', authCheck, SMSController.get_by_asin)
 
 router.get('/user/:userId', authCheck, SMSController.get_by_user)
 
-router.post('/send', /*authCheck,*/ SMSController.sendSms, SMSController.logSms)
+router.post('/send', authCheck, SMSController.sendSms, SMSController.logSms)
 
 module.exports = router

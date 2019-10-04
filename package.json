@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www"
+    "start": "nodemon ./bin/www",
+    "test": "node node_modules/mocha/bin/mocha --recursive"
   },
   "keywords": [
     "node",
@@ -27,6 +28,9 @@
     "twilio": "^3.33.0"
   },
   "devDependencies": {
+    "dotenv": "^8.1.0",
+    "eslint": "^6.1.0",
+    "mocha": "^6.2.1",
     "nodemon": "^1.19.1"
   }
 }
