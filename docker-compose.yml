@@ -5,8 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: sayretj/dev-nodejs-sms:0.0.1
-    container_name: nodejs
+    image: cachehive/api_core-sms:0.0.1
+#    container_name: nodejs
     restart: unless-stopped
     env_file: .env
     environment:
@@ -21,13 +21,13 @@ services:
       - .:/home/node/app
       - node_modules:/home/node/app/node_modules
     networks:
-      - shark-network
+      - api_core-sms-network
     #command: ./wait-for.sh db:27017 && /home/node/app/node_modules/.bin/nodemon app.js 
-    command: /home/node/app/node_modules/.bin/nodemon app.js 
+    #command: /home/node/app/node_modules/.bin/nodemon app.js 
 
   db:
     image: mongo:4.2.0-bionic
-    container_name: db
+#    container_name: db
     restart: unless-stopped
     env_file: .env
     environment:
@@ -38,10 +38,10 @@ services:
     volumes:  
       - dbdata:/data/db   
     networks:
-      - shark-network  
+      - api_core-sms-network
 
 networks:
-  shark-network:
+  api_core-sms-network:
       driver: bridge
 
 volumes:
