@@ -7,7 +7,7 @@ const SMSController = require('../controllers/sms')
 
 router.get('/', authCheck, SMSController.get_all_sms)
 
-router.get('/asin/:asin', authCheck, SMSController.get_by_asin)
+router.get('/sms/:smsId', authCheck, SMSController.get_by_id)
 
 router.get('/user/:userId', authCheck, SMSController.get_by_user)
 

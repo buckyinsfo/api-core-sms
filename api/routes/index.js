@@ -3,7 +3,7 @@ var router = express.Router()
 
 /* GET home page. */
 router.get('/', (req, res, next) => {
-    res.render('index', { title: 'sms-rest-api' })
+    res.render('index', { title: 'api-core-sms' })
 })
 
 router.post('/', (req, res, next) => {

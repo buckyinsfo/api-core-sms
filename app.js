@@ -1,3 +1,6 @@
+const dotenv = require('dotenv');
+dotenv.config();
+
 const createError = require('http-errors')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -64,15 +67,8 @@ app.use((err, req, res, next) => {
     res.status(err.status || 500)
     res.json({
         // error: {
-<<<<<<< HEAD
         message: error.message
         // msg: "not good to be here"
-=======
-        //     header: "royal fail",
-        message: error.message
-
-        //    msg: "not good to be here"
->>>>>>> 6384a6136ca02dc92243a8d36b4e7e87c91faf36
     })
 })
 
