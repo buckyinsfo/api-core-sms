@@ -19,6 +19,8 @@ const data = [
     }
 ]
 
+const update_email = "wally@webuilt.com"
+
 const fauxUser = new User({ 
     _id: new mongoose.Types.ObjectId(),
     ...data[0]
@@ -117,22 +119,16 @@ describe('saving User documents', () => {
             })
     })
 
-    // it("find and update a User document", (done) => {
-    //     User.findOneAndUpdate({symbol: priceHistory.symbol}, {symbol: update_symbol})
-    //         .then( () => {
-    //             fauxUser.findOne({_id: priceHistory._id})
-    //                 .then( (result) => {
-    //                     assert(result._id.toString() === priceHistory._id.toString())
-    //                     assert(result.symbol === update_symbol)
-    //                     done()
-    //                 })
-    //         })
-    // })
+    it("find and update a User document", (done) => {
+        User.findOneAndUpdate({email: fauxUser.email}, {email: update_email})
+            .then( () => {
+                User.findOne({_id: fauxUser._id})
+                    .then( (result) => {
+                        assert(result._id.toString() === fauxUser._id.toString())
+                        assert(result.email === update_email)
+                        done()
+                    })
+            })
+    })
 
-    // it('nesting candle sub-document in fauxUser document', (done) => {
-    //     fauxUser.findOneAndUpdate({symbol: update_symbol}, { $set: { candles }})
-    //     .then( () => {
-    //         done()
-    //     })
-    // })
 })
