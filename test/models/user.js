@@ -1,31 +1,15 @@
-const assert = require('assert')
+const assert = require('chai').assert
 const expect = require('chai').expect
 const mongoose = require('mongoose')
 
 const User = require('../../api/models/user')
-
-const data = [
-    { 
-        "email": "wally@example.com", 
-        "role": "user",
-        "active": true,
-        "verified": false,
-        "authyId": "i forget what this is",
-        "fullName": "Wally B Webuilt",
-        "company": "Bollard Corp",
-        "countryCode": "IRL",
-        "phone": "011 353 5551212",
-        "password": "waLlyShasH",
-    }
-]
-
-const update_email = "wally@webuilt.com"
+const users = require('../sample-data/users-data').users_data
+const update_email = require('../sample-data/users-data').update_email
 
 const fauxUser = new User({ 
     _id: new mongoose.Types.ObjectId(),
-    ...data[0]
+    ...users[0]
 })
-
 
 describe('saving User documents', () => {
     
@@ -130,5 +114,4 @@ describe('saving User documents', () => {
                     })
             })
     })
-
 })
