@@ -6,12 +6,12 @@ const User = require('../../api/models/user')
 const users = require('../sample-data/users-data').users_data
 const update_email = require('../sample-data/users-data').update_email
 
-const fauxUser = new User({ 
-    _id: new mongoose.Types.ObjectId(),
-    ...users[0]
-})
-
 describe('saving User documents', () => {
+    
+    const fauxUser = new User({ 
+        _id: new mongoose.Types.ObjectId(),
+        ...users[0]
+    })
     
     before( (done) => {
         mongoose.connection.collections.users.drop( () => {

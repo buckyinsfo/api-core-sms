@@ -9,18 +9,18 @@ const users_data = require('../sample-data/users-data').users_data
 const sms_data = require('../sample-data/sms-data').sms_data
 const update_msg = require('../sample-data/sms-data').update_msg
 
-const fauxUser = new User({
-    _id: new mongoose.Types.ObjectId(),
-    ...users_data[0],
-})
-
-const sms = new SMS({ 
-    _id: new mongoose.Types.ObjectId(),
-    user: fauxUser._id,
-    ...sms_data[0],
-})
-
 describe('saving SMS documents', () => {
+    
+    const fauxUser = new User({
+        _id: new mongoose.Types.ObjectId(),
+        ...users_data[0],
+    })
+    
+    const sms = new SMS({ 
+        _id: new mongoose.Types.ObjectId(),
+        user: fauxUser._id,
+        ...sms_data[0],
+    })
     
     before( (done) => {
         
