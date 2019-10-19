@@ -12,5 +12,5 @@ module.exports = { users_data:[
             "password": "waLlyShasH",
         }
     ],
-    update_email: "wally@webuilt.com"
+    update_email: "wally@webuilt.com",
 }
